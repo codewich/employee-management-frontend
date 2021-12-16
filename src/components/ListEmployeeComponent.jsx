@@ -11,6 +11,7 @@ class ListEmployeeComponent extends Component {
         this.addEmployee = this.addEmployee.bind(this);
         this.updateEmployee = this.updateEmployee.bind(this);
         this.deleteEmployee = this.deleteEmployee.bind(this);
+        this.viewEmployee = this.viewEmployee.bind(this);
     }
 
     componentDidMount() {
@@ -21,6 +22,10 @@ class ListEmployeeComponent extends Component {
 
     addEmployee() {
         this.props.history.push('/add-employee/-1');
+    }
+
+    viewEmployee(id) {
+        this.props.history.push(`/employees/${id}`);
     }
 
     updateEmployee(id){
@@ -60,7 +65,8 @@ class ListEmployeeComponent extends Component {
                                         <td> {employee.lastName} </td>
                                         <td> {employee.emailId} </td>
                                         <td>
-                                            <button onClick={()=>this.updateEmployee(employee.id)} className={"btn btn-info"}>Edit</button>
+                                            <button onClick={()=>this.viewEmployee(employee.id)} className={"btn btn-info"} >View</button>
+                                            <button onClick={()=>this.updateEmployee(employee.id)} className={"btn btn-info"} style={{marginLeft: "10px"}}>Edit</button>
                                             <button onClick={()=>this.deleteEmployee(employee.id)} className={"btn btn-danger"} style={{marginLeft: "10px"}}>Delete</button>
                                         </td>
                                     </tr>
