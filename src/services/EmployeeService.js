@@ -19,8 +19,8 @@ class EmployeeService {
         return axios.put(EMPLOYEE_API_BASE_URL+`/${employeeId}`, employee);
     }
 
-    removeEmployee(employee) {
-        return axios.delete(EMPLOYEE_API_BASE_URL, employee);
+    deleteEmployee(employeeId) {
+        return axios.delete(EMPLOYEE_API_BASE_URL+`/${employeeId}`);
     }
 }
 
