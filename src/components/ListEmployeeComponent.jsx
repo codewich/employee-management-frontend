@@ -19,20 +19,21 @@ class ListEmployeeComponent extends Component {
     }
 
     addEmployee() {
-        this.props.history.push('/add-employee');
+        this.props.history.push('/add-employee/-1');
     }
 
     updateEmployee(id){
-        this.props.history.push(`/update-employee/${id}`);
+        this.props.history.push(`/add-employee/${id}`);
     }
 
     render() {
         return (
             <div>
                 <h2 className="text-center">Employees List</h2>
-                <div className={"row"}>
-                    <button className="btn btn-outline-primary" onClick={this.addEmployee}>Add Employee</button>
+                <div className="row">
+                    <button className="btn btn-primary" onClick={this.addEmployee}>Add Employee</button>
                 </div>
+                <br/>
                 <div className="row">
                     <table className="table table-striped table-bordered">
                         <thead>

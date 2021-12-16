@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import EmployeeService from "../services/EmployeeService";
 
-class AddEmployeeComponent extends Component {
+class AddOrEditEmployeeComponent extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: '', lastName: '', emailId: ''
+            id: this.props.match.params.id, firstName: '', lastName: '', emailId: ''
         }
 
         this.changeFirstNameHandler = this.changeFirstNameHandler.bind(this);
@@ -14,6 +14,19 @@ class AddEmployeeComponent extends Component {
         this.changeEmailHandler = this.changeEmailHandler.bind(this);
         this.saveEmployee = this.saveEmployee.bind(this);
         this.back = this.back.bind(this);
+    }
+
+    componentDidMount() {
+        if (this.state.id != "-1") {
+            EmployeeService.getEmployeeById(this.state.id).then((res) => {
+                let employee = res.data;
+                this.setState({
+                    firstName: employee.firstName,
+                    lastName: employee.lastName,
+                    emailId: employee.emailId
+                });
+            })
+        }
     }
 
     changeFirstNameHandler = (event) => {
@@ -31,21 +44,37 @@ class AddEmployeeComponent extends Component {
         let employee = {
             firstName: this.state.firstName, lastName: this.state.lastName, emailId: this.state.emailId
         };
-        EmployeeService.addEmployee(employee).then(res => {
-            this.props.history.push('/employees')
-        });
+        if (this.state.id == "-1") {
+            EmployeeService.addEmployee(employee).then(res => {
+                this.props.history.push('/employees')
+            });
+        } else {
+            EmployeeService.updateEmployee(employee, this.state.id).then(res => {
+                this.props.history.push('/employees');
+            });
+        }
     }
 
     back() {
         this.props.history.push('/employees');
     }
 
+    getTitle() {
+        if (this.state.id == -1) {
+            return <h3 className={"text-center"}> Add Employee </h3>
+        } else {
+            return <h3 className={"text-center"}> Edit Employee </h3>
+        }
+    }
+
     render() {
-        return (<div>
+        return (
+            <div>
+                <br/>
                 <div className={"container"}>
                     <div className={"row"}>
                         <div className={"card col-md-6 offset-md-3 offset-md-3"}>
-                            <h3 className={"text-center"}>Add Employee</h3>
+                            {this.getTitle()}
                             <div className={"card-body"}>
                                 <form>
                                     <div className={"form-group"}>
@@ -78,4 +107,4 @@ class AddEmployeeComponent extends Component {
     }
 }
 
-export default AddEmployeeComponent;
+export default AddOrEditEmployeeComponent;

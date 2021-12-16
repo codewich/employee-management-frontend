@@ -3,8 +3,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import ListEmployeeComponent from "./components/ListEmployeeComponent";
 import HeaderComponent from "./components/HeaderComponent.";
 import FooterComponent from "./components/FooterComponent";
-import AddEmployeeComponent from "./components/AddEmployeeComponent";
-import UpdateEmployeeComponent from "./components/UpdateEmployeeComponent";
+import AddOrEditEmployeeComponent from "./components/AddOrEditEmployeeComponent";
 
 function App() {
     return (<div>
@@ -15,8 +14,7 @@ function App() {
                     <Switch>
                         <Route path={"/"} exact component={ListEmployeeComponent}/>
                         <Route path={"/employees"} component={ListEmployeeComponent}/>
-                        <Route path={"/add-employee"} component={AddEmployeeComponent}/>
-                        <Route path={"/update-employee/:id"} component={UpdateEmployeeComponent}/>
+                        <Route path={"/add-employee/:id"} component={AddOrEditEmployeeComponent}/>
                     </Switch>
                 </div>
                 <FooterComponent/>
